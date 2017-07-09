@@ -1,0 +1,12 @@
+[Unit]
+Description= Take a photo each half hour
+
+[Timer]
+Persistent=true
+OnBootSec=1min
+#OnCalendar=30m
+OnUnitActiveSec=30s
+Unit=carport.service
+
+[Install]
+WantedBy=timers.target
