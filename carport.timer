@@ -1,11 +1,10 @@
 [Unit]
-Description= Take a photo each half hour
+Description= Take a photo every thirty seconds
 
 [Timer]
 Persistent=true
 OnBootSec=1min
-#OnCalendar=30m
-OnUnitActiveSec=30s
+OnCalendar=*:*:0/30
 Unit=carport.service
 
 [Install]
