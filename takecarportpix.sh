@@ -8,7 +8,7 @@ if [ -e picdir.config ]; then
 else echo "picdir.config does not exist"; exit 1
 fi
 #echo camherder = $camherder
-picdate=$(date +%Y-%m-%d_%H%M)
+picdate=$(date +%Y-%m-%d_%H%M%S)
 artist=carport
 
 cd ${picdir}
