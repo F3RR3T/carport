@@ -1,8 +1,7 @@
 [Unit]
-Description=little pixfrom D-link cam
+Description=little pix from D-link cam
 
 [Service]
 Type=oneshot
 User=st33v
-WorkingDirectory=/home/st33v/pix/
-ExecStart=/usr/local/bin/takecarportpix.sh
+ExecStart=-/usr/local/bin/takecarportpix.sh
