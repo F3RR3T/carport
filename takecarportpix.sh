@@ -14,3 +14,11 @@ artist=carport
 cd ${picdir}
 curl -sO 133.7.0.103/image.jpg
 mv image.jpg $picdate.jpg
+
+# now weed out nightshots
+mean=$(identify -format %[mean] ${newpic} | sed s/[.].*//)
+if [[ ${mean} -lt 300 ]]; then
+    rm ${picdate}.jpg
+    echo 'too dark'
+fi
+
