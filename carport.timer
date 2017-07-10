@@ -2,8 +2,9 @@
 Description= Take a photo every thirty seconds
 
 [Timer]
-OnBootSec=1min
-OnCalendar=*:*:0/30
+#OnBootSec=1min
+AccuracySec=1us
+OnCalendar=*:*:00,30
 Unit=carport.service
 
 [Install]
