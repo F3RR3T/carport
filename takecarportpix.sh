@@ -15,13 +15,16 @@ artist=carport
 
 cd ${picdir}
 newdaydir
+echo 'getting image'
 curl -sO 133.7.0.103/image.jpg
+echo 'curl returned $?'
 mv image.jpg $picdate.jpg
 
 # now weed out nightshots
-mean=$(identify -format %[mean] ${newpic} | sed s/[.].*//)
+mean=$(identify -format %[mean] ${picdate}.jpg | sed s/[.].*//)
 if [[ ${mean} -lt 300 ]]; then
-    rm ${picdate}.jpg
+    echo "Deleting night shot (mean=${mean})"
+    #rm ${picdate}.jpg
 fi
 
 # now make a movie
