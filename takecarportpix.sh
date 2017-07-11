@@ -19,6 +19,9 @@ mv image.jpg $picdate.jpg
 mean=$(identify -format %[mean] ${newpic} | sed s/[.].*//)
 if [[ ${mean} -lt 300 ]]; then
     rm ${picdate}.jpg
-    echo 'too dark'
 fi
 
+# now make a movie
+#mkdir mov
+#find -name "*.jpg" | sort | gawk 'BEGIN{a=1}{printf "cp %s mov/%04d.jpg\n", $0, a++}' | bash
+#ffmpeg -r 25  -i mov/%04d.jpg -qscale 8 farmfilm.mp4
