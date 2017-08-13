@@ -15,5 +15,5 @@ function newdaydir {
 		mkdir ${yr}/${mo}/${day}
 	fi
 	cd ${yr}/${mo}/${day}
-	echo $PWD
+#	echo $PWD
 }
