@@ -6,14 +6,8 @@ function newdaydir {
 	mo=$(date +%m)
 	day=$(date +%d)
 	if [ ! -d ${yr}/${mo}/${day} ]; then
-		if [ ! -d ${yr}/${mo} ]; then
-			if [ ! -d ${yr} ]; then
-				mkdir ${yr}	
-			fi
-			mkdir ${yr}/${mo}
-		fi
-		mkdir ${yr}/${mo}/${day}
+		mkdir -p ${yr}/${mo}/${day}
 	fi
 	cd ${yr}/${mo}/${day}
-#	echo $PWD
+	# echo $PWD
 }
