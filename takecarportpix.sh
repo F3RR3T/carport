@@ -3,7 +3,7 @@
 cd /usr/local/bin/
 . newday.sh
 
-threshold=250 # Used to find photoes that are too dark (using imagemagick identify function)
+threshold=550 # Used to find photoes that are too dark (using imagemagick identify function)
     # threshold was found by trial and error for this particular camera/scene.
     # Is there a better way?
 picdir="/path/to/my/photos"  # overwritten by sourcing from .picdir.config
@@ -18,19 +18,19 @@ artist=carport
 
 cd ${picdir}
 newdaydir
-#echo 'getting image'
+echo 'curl and store image to '${picdir}
 curl -sO 133.7.0.103/image.jpg
-#echo 'curl returned $?'
+echo 'curl returned ' $?
 mv image.jpg $picdate.jpg
 
 # now weed out nightshots
 mean=$(identify -format %[mean] ${picdate}.jpg | sed s/[.].*//)
-#echo "Mean is ${mean}"
+echo "Mean is ${mean}"
 if [[ ${mean} -lt ${threshold}  ]] ; then
  #   echo "Deleting night shot (mean=${mean})"
     rm ${picdate}.jpg
 #else
- #   echo "daytime!"
+    echo "daytime!"
 fi
 
 # now make a movie
