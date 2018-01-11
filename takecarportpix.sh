@@ -18,19 +18,19 @@ artist=carport
 
 cd ${picdir}
 newdaydir
-echo 'curl and store image to '${picdir}
-curl -sO 133.7.0.103/image.jpg
-echo 'curl returned ' $?
+# echo 'curl and store image to '${picdir}
+curl -sO 133.7.0.140/image.jpg
+# echo 'curl returned ' $?
 mv image.jpg $picdate.jpg
 
 # now weed out nightshots
 mean=$(identify -format %[mean] ${picdate}.jpg | sed s/[.].*//)
-echo "Mean is ${mean}"
-if [[ ${mean} -lt ${threshold}  ]] ; then
- #   echo "Deleting night shot (mean=${mean})"
+# echo "Mean is ${mean}"
+if [ ${mean} -lt ${threshold} ] ; then
+    #  echo "Deleting night shot (mean=${mean})"
     rm ${picdate}.jpg
 #else
-    echo "daytime!"
+    # echo "daytime!"
 fi
 
 # now make a movie
