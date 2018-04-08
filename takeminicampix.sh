@@ -21,12 +21,11 @@ fi
 for cam in "${camz[@]}"
 do
     #echo camherder = $camherder
-    picdate=$(date +%Y-%m-%d_%H%M%S)
+    timestamp=$(date +%Y-%m-%d_%H%M%S)
     artist=${cam}
 
-    cd ${picdir}
-    newdaydir
-    # echo 'curl and store image to '${picdir}
+    cd ${picdir}/${cam}/$(newdaydir)
+    echo "curl and store image to $PWD"
     curl -sO ${cam}/image.jpg
     # echo 'curl returned ' $?
     
@@ -44,6 +43,6 @@ do
     if [ ${cam} -eq "carport" ] ; then
         convert image.jpg -rotate 180 image.jpg
     fi
-    mv image.jpg ${cam}/${picdate}.jpg
+    mv image.jpg timestamp.jpg
 done
 

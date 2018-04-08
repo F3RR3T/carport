@@ -16,7 +16,7 @@ fi
 picdate=$(date +%Y-%m-%d_%H%M%S)
 artist=carport
 
-cd ${picdir}
+cd ${picdir}/carport
 today=$(newdaydir)
 # echo 'curl and store image to '${picdir}
 curl -sO carport/image.jpg
