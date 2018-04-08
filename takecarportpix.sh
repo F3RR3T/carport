@@ -19,7 +19,7 @@ artist=carport
 cd ${picdir}
 newdaydir
 # echo 'curl and store image to '${picdir}
-curl -sO 133.7.0.140/image.jpg
+curl -sO carport/image.jpg
 # echo 'curl returned ' $?
 mv image.jpg $picdate.jpg
 
