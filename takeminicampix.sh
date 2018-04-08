@@ -44,7 +44,7 @@ do
         # echo 'Deleting night shot (mean='${mean}')'
         rm image.jpg
         # make a timelapse movie if this is the first darkshot
-        if [ -e darkmarker ]; then 
+        if [ ! -e darkmarker ]; then 
             makemovie ${cam} $(date +%Y-%m-%d)
         fi
         touch darkmarker
