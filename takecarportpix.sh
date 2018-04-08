@@ -17,11 +17,11 @@ picdate=$(date +%Y-%m-%d_%H%M%S)
 artist=carport
 
 cd ${picdir}
-newdaydir
+today=$(newdaydir)
 # echo 'curl and store image to '${picdir}
 curl -sO carport/image.jpg
 # echo 'curl returned ' $?
-mv image.jpg $picdate.jpg
+mv image.jpg ${today}/$picdate.jpg
 
 # now weed out nightshots
 mean=$(identify -format %[mean] ${picdate}.jpg | sed s/[.].*//)
