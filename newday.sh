@@ -15,7 +15,7 @@ function newdaydir {
 
 function makemovie {
     mkdir mov
-    find -name "*.jpg" | sort | qawk 'BEGIN{a=1}{printf "cp %s mov/%04d.jpg\n", $0, a++}' | bash
+    find -name "*.jpg" | sort | gawk 'BEGIN{a=1}{printf "cp %s mov/%04d.jpg\n", $0, a++}' | bash
     ffmpeg -r 24 -i mov/%04d.jpg ${cam}$(date +%Y-%m-%d).mp4
     touch /home/st33v/cams/${cam}moviemark
 }
