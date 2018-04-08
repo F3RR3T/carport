@@ -8,6 +8,5 @@ function newdaydir {
 	if [ ! -d ${yr}/${mo}/${day} ]; then
 		mkdir -p ${yr}/${mo}/${day}
 	fi
-	cd ${yr}/${mo}/${day}
-	# echo $PWD
+	echo ${yr}/${mo}/${day}
 }
