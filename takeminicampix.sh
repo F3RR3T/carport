@@ -10,8 +10,8 @@ threshold=550 # Used to find photoes that are too dark (using imagemagick identi
 picdir="/path/to/my/photos"  # overwritten by sourcing from .picdir.config
 declare -a camz
 camz=(host1 host2 host3 etc) # overwritten by picdir.config
-if [ -e picdir.config ]; then
-    source picdir.config             # source directory name from local config file
+if [ -e /usr/local/share/picdir.config ]; then
+    source /usr/local/share/picdir.config             # source directory name from local config file
 else echo "picdir.config does not exist"; exit 1
 fi
 
