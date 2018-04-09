@@ -43,11 +43,14 @@ do
     if [[ ${mean} < ${threshold} ]] ; then
         # echo 'Deleting night shot (mean='${mean}')'
         rm image.jpg
-        # make a timelapse movie if this is the first darkshot
-        if [ ! -e darkmarker ]; then 
-            makemovie ${cam} $(date +%Y-%m-%d)
+        # Has the sun gone down (after noon, not after midnight)
+        thishour=$(date +%H)    # hour as a number 00-24
+        if [[ thishour > 12 ]] ; then
+            if [ ! -e sunset ]; then 
+                touch sunset
+                touch ${picdir}/mov/sunsetmarker-${cam}
+            fi
         fi
-        touch darkmarker
         continue
     fi
     
