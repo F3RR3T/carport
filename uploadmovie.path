@@ -1,0 +1,8 @@
+[Unit]
+Description=Created timelapse movie and upload to website
+
+[Path]
+PathModified=/home/st33v/cams/mov/
+
+[Install]
+WantedBy=multi-user.target

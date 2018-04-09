@@ -1,0 +1,8 @@
+[unit]
+Description=Create and upload movie to webserver
+
+[Service]
+Type=simple
+User=st33v
+ExecStart=-/usr/local/bin/makemovie.sh
+
