@@ -1,25 +1,13 @@
 #!/usr/bin/bash
-# Function to add a new directory if required
-
-function newdaydir {
-    thisdir=${1}
-    yr=$(date +%Y)     # 4-digit year
-    mo=$(date +%m)
-    day=$(date +%d)
-    today=${thisdir}/${yr}/${mo}/${day}
-    if [ ! -d ${today} ]; then
-	mkdir -p ${today}
-    fi
-    echo ${today}
-}
+# Function to make a timelapse movie after sunset
 
 function makemovie {
-    mkdir -p mov
+    framerate=${1:-24}  # default 24 frames per second
+    mkdir -p mov        # temp directory
     find -name "*.jpg" | sort | gawk 'BEGIN{a=1}{printf "cp %s mov/%04d.jpg\n", $0, a++}' | bash
-    movie=${cam}$(\date +%Y-%m-%d).mp4
-    ffmpeg -r 24 -i mov/%04d.jpg ${movie}
+    movie=$(\date +%Y-%m-%d)_${cam}.mp4
+    ffmpeg -r ${framerate} -i mov/%04d.jpg ${movie}
     rm mov/*.jpg
     rmdir mov
-    mv ${movie} /home/st33v/cams/${cam}/.
-    touch /home/st33v/cams/${cam}moviemark
+    mv ${movie} ${picdir}/mov/.
 }
