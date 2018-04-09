@@ -40,7 +40,7 @@ do
     # weed out nightshots
     mean=$(identify -format %[mean] image.jpg | sed s/[.].*//)
     # echo Mean is ${mean}
-    if [[ ${mean} < ${threshold} ]] ; then
+    if [ ${mean} -lt ${threshold} ] ; then
         # echo 'Deleting night shot (mean='${mean}')'
         rm image.jpg
         # Has the sun gone down (after noon, not after midnight)
