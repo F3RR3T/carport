@@ -45,7 +45,7 @@ do
         rm image.jpg
         # Has the sun gone down (after noon, not after midnight)
         thishour=$(date +%H)    # hour as a number 00-24
-        if [[ thishour > 12 ]] ; then
+        if [[ ${thishour} > 12 ]] ; then
             if [ ! -e sunset ]; then 
                touch sunset
                # create a file in the directory that is monitored by Systemd uploadmovie.path unit
