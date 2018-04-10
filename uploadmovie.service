@@ -1,8 +1,13 @@
 [unit]
 Description=Create and upload movie to webserver
+StartLimitIntervalSec=30
+StartLimitBurst=2
 
 [Service]
 Type=simple
 User=st33v
 ExecStart=-/usr/local/bin/makemovie.sh
+
+# try again if there was a clash
+Restart=always
 
