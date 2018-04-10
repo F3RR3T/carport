@@ -16,7 +16,7 @@ function MakeMovie {
     mkdir -p mov        # temp directory
     find -name "*.jpg" | sort | gawk 'BEGIN{a=1}{printf "cp %s mov/%04d.jpg\n", $0, a++}' | bash
     movie=$(\date +%Y-%m-%d)_${cam}.mp4
-    ffmpeg -hide_banner -nostats -y -r ${framerate} -i mov/%04d.jpg ${movie}
+    ffmpeg -hide_banner -nostats -v error -y -r ${framerate} -i mov/%04d.jpg ${movie}
     rm mov/*.jpg
     rmdir mov
     mv ${movie} ${picdir}/staging/.
