@@ -16,7 +16,7 @@ function MakeMovie {
     mkdir -p mov        # temp directory
     find -name "*.jpg" | sort | gawk 'BEGIN{a=1}{printf "cp %s mov/%04d.jpg\n", $0, a++}' | bash
     movie=$(\date +%Y-%m-%d)_${cam}.mp4
-    ffmpeg -r ${framerate} -i mov/%04d.jpg ${movie}
+    ffmpeg -hide_banner -nostats -y -r ${framerate} -i mov/%04d.jpg ${movie}
     rm mov/*.jpg
     rmdir mov
     mv ${movie} ${picdir}/staging/.
@@ -33,10 +33,10 @@ do
     cam=${markfile#sunset-}     #strip prefix
     cam=${cam%.mark}            #strip extension
     if [[ ${markfile} == '*.mark' ]] ; then
-        echo "Error: no markfiles therefore exiting"
+        echo "Error: no markfiles therefore exiting."
         exit 1
     fi
-    echo markfile=${markfile}   cam=${cam}
+    echo markfile=${markfile}  cam=${cam}
     sourcedir=$(cat ${markfile})
     cd ${sourcedir}
     echo sourcedir ${sourcedir}
@@ -49,9 +49,9 @@ do
     rm ${markfile}
 
     # upload
-    echo "uploading to ${web} started at $(date)"
+    echo "Uploading ${movie} to ${web} started at $(date)."
     scp staging/${movie} ${web}/mov/.
     # rm staging/{movie}
-    echo "uploading finished at $(date)"
+    echo "Uploading finished at $(date)."
 
 done
