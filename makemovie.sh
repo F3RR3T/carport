@@ -12,7 +12,8 @@ picdir=${thisdir}/mov   # kludge until i rename var in paths.config
 # Function to make a timelapse movie after sunset
 function MakeMovie {
     framerate=${1:-24}  # default 24 frames per second
-    echo "MakeMovie started at $(\date)"
+    begin=$(date +"%s")
+    # echo "MakeMovie started"
     mkdir -p mov        # temp directory
     find -name "*.jpg" | sort | gawk 'BEGIN{a=1}{printf "cp %s mov/%04d.jpg\n", $0, a++}' | bash
     movie=$(\date +%Y-%m-%d)_${cam}.mp4
@@ -20,7 +21,7 @@ function MakeMovie {
     rm mov/*.jpg
     rmdir mov
     mv ${movie} ${picdir}/staging/.
-    echo "MakeMovie finished at $(\date)"
+    echo "MakeMovie took $((date +"%s" - ${begin})) sec."
 }
 
 
@@ -31,16 +32,16 @@ cd ${picdir}
 for markfile in *.mark
 do
     if [ ${#markfile[@]} -eq 0 ]; then 
-        echo "No markfiles to process; stopping"
-        exit 0
+        echo "No markfiles to process; stopping."
+        exit 1 
     fi
     if [[ ${markfile} == '*.mark' ]] ; then
-        echo "Error: no markfiles therefore exiting."
+        echo "No markfiles therefore exiting."
         exit 1
     fi
     cam=${markfile#sunset-}     #strip prefix
     cam=${cam%.mark}            #strip extension
-    echo markfile=${markfile}  cam=${cam}
+    # echo markfile=${markfile}  cam=${cam}
     sourcedir=$(cat ${markfile})
     cd ${sourcedir}
     echo sourcedir ${sourcedir}
@@ -55,8 +56,8 @@ do
     rm ${markfile}
 
     # upload
-    echo "Uploading ${movie} to ${web} started at $(\date)."
+    begin=$(date +"%s")
     scp staging/${movie} ${web}/mov/.
     rm staging/${movie}
-    echo "Uploading finished at $(\date)."
+    echo "Upload of ${movie} to ${web} took $((date +"%s" - ${begin})) sec."
 done
