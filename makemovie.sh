@@ -21,7 +21,8 @@ function MakeMovie {
     rm mov/*.jpg
     rmdir mov
     mv ${movie} ${picdir}/staging/.
-    echo "MakeMovie took $((date +"%s" - ${begin})) sec."
+    finish=$(date +"%s")
+    echo "MakeMovie took $((${finish} - ${begin})) sec."
 }
 
 
@@ -31,13 +32,9 @@ cd ${picdir}
 # The file contains the path to the day's images.
 for markfile in *.mark
 do
-    if [ ${#markfile[@]} -eq 0 ]; then 
-        echo "No markfiles to process; stopping."
-        exit 1 
-    fi
     if [[ ${markfile} == '*.mark' ]] ; then
         echo "No markfiles therefore exiting."
-        exit 1
+        exit 0 
     fi
     cam=${markfile#sunset-}     #strip prefix
     cam=${cam%.mark}            #strip extension
@@ -59,5 +56,6 @@ do
     begin=$(date +"%s")
     scp staging/${movie} ${web}/mov/.
     rm staging/${movie}
-    echo "Upload of ${movie} to ${web} took $((date +"%s" - ${begin})) sec."
+    finish=$(date +"%s")
+    echo "Upload of ${movie} to ${web} took $((${finish} - ${begin})) sec."
 done
