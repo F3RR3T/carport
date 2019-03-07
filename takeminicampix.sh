@@ -24,22 +24,25 @@ timestamp=$(date +%Y-%m-%d_%H%M%S)
 
 for cam in "${camz[@]}"
 do
-    # echo cam = $cam
     #artist=${cam}
 
     thiscam=${picdir}/${cam}
     todaydir=$(newdaydir ${thiscam})
     cd ${todaydir}
     #echo ${picdir}
-    #echo ${cam}
     #echo ${todaydir}
     #echo "curl and store image to $PWD"
     curl -sO ${cam}/image.jpg
-    #echo 'curl returned ' $?
+    curlexit=$?
+    #echo 'curl for '${cam}' returned ' $? $curlexit
     
     # weed out nightshots
+    if [ "$curlexit" == '7' ] ; then 
+        #echo 'Error: no image from' ${cam} '('${curlexit}')'
+        continue   # loop if curl exited badly
+    fi
     mean=$(identify -format %[mean] image.jpg | sed s/[.].*//)
-    # echo Mean is ${mean}
+     #echo Mean is ${mean}
     if [ ${mean} -lt ${threshold} ] ; then
         # echo 'Deleting night shot (mean='${mean}')'
         rm image.jpg
@@ -47,9 +50,10 @@ do
         thishour=$(date +%H)    # hour as a number 00-24
         if [[ ${thishour} > 12 ]] ; then
             if [ ! -e sunset ]; then 
-               touch sunset
                # create a file in the directory that is monitored by Systemd uploadmovie.path unit
                echo ${todaydir} > ${picdir}/mov/sunset-${cam}.mark
+               echo 'Sunset has occured for ${cam} camera'
+               touch sunset   # prevent further 'Sunset' registrations today for this cam 
             fi
         fi
         continue
