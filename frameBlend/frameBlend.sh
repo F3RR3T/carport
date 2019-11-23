@@ -3,20 +3,22 @@
 # Copied from https://gist.github.com/antarktikali/d4ebdc5ebdc32f449827
 
 mkdir new_frames
-cp IMG_2985.JPG new_frames/previous.jpg
+cp IMG_2985.png new_frames/previous.png
+cp $0 new_frames/previous.png
+
 cd new_frames
 counter=0
 
-for f in ../IMG_*.JPG
+for f in ../*.png
   do
     for i in {0..20}
       do
         let "counter+=1"
-        composite -blend $((i*5)) $f previous.jpg -matte blend_$counter.jpg
+        composite -blend $((i*5)) $f previous.png -matte blend_$counter.png
       done
-    cp $f previous.jpg
+    cp $f previous.png
   done
 
-rm previous.jpg
+rm previous.png
 
-ffmpeg -r "60" -i blend_%d.jpg -qscale 6 video.mp4
+ffmpeg -r "60" -i blend_%d.png -qscale 6 video.mp4
