@@ -1,0 +1,1 @@
+magick convert -size 320x85 canvas:none -font Ubuntu -pointsize 36 -draw "text 25,60 'F3rr3t R00lZ'" -channel RGBA -blur 0x6 -fill darkred -stroke magenta -draw "text 20,55 'St33v R00lZ'" fuzzy-magick.png
